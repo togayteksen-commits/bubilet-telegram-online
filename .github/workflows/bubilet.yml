@@ -1,0 +1,25 @@
+name: Bubilet Telegram Raporu
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/10 * * * *'
+concurrency:
+  group: bubilet-telegram-report
+  cancel-in-progress: false
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - run: npm run run
+        env:
+          BUBILET_EMAIL: ${{ secrets.BUBILET_EMAIL }}
+          BUBILET_PASSWORD: ${{ secrets.BUBILET_PASSWORD }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}

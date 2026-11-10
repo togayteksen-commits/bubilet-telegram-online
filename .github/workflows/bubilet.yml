@@ -1,8 +1,6 @@
 name: Bubilet Telegram Raporu
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '*/10 * * * *'
 concurrency:
   group: bubilet-telegram-report
   cancel-in-progress: false

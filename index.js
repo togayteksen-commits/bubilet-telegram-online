@@ -7,7 +7,7 @@ try{
  const page=await browser.newPage({locale:'tr-TR',timezoneId:'Asia/Baku'});
  await page.goto('https://panel.bubilet.com.tr/login',{waitUntil:'domcontentloaded',timeout:90000});
  if(page.url().includes('/login')){
-  const email=page.locator('input[type="email"],input[name*="email" i],input[placeholder*="posta" i]').first();
+  const email=page.locator('input[type="email"],input[type="text"],input[name*="email" i],input[placeholder*="posta" i]').first();
   await email.waitFor({state:'visible',timeout:60000});
   await email.fill(process.env.BUBILET_EMAIL);
   await page.locator('input[type="password"]').first().fill(process.env.BUBILET_PASSWORD);
